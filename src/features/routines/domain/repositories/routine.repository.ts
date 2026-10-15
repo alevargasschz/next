@@ -1,6 +1,7 @@
 import { Routine } from "../entities/routines";
 
 export interface CreateRoutineParams {
+    id: number;
     name: string;
     description?: string;
 }

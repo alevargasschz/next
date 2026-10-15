@@ -6,8 +6,12 @@ import { RoutineMapper } from "../mappers/routine-mapper";
 export class RoutineRepositoryImpl implements IRoutinesRepository {
     constructor(private readonly datasource: IRoutinesDatasource) { }
     
-    create(routine: CreateRoutineParams): Promise<Routine> {
-        throw new Error("Method not implemented.");
+    async create(routine: CreateRoutineParams): Promise<Routine> {
+        const DTOToSend = RoutineMapper.toCreateDTO(
+            new Routine({ ...routine, description: routine.description ?? "" })
+        );
+        const createdRoutine = await this.datasource.createRoutine(DTOToSend);
+        return RoutineMapper.toDomain(createdRoutine);
     }
     findById(id: number): Promise<Routine | null> {
         throw new Error("Method not implemented.");

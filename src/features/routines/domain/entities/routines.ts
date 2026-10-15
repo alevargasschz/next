@@ -4,7 +4,7 @@ export interface IRoutines {
     description: string;
 }
 
-export class Routine implements IRoutines { 
+export class Routine { 
     readonly id: number;
     readonly name: string;
     readonly description: string;
@@ -12,7 +12,7 @@ export class Routine implements IRoutines {
     constructor(routine: IRoutines) {
         this.id = routine.id;
         this.name = routine.name;
-        this.description = routine.description;
+        this.description = routine.description ?? 'Descripcion no especificada';
     }
 
     validate(routine: IRoutines): boolean {

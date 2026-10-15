@@ -1,11 +1,12 @@
 import { Routine } from '../../domain/entities/routines';
+import { CreateRoutineParams } from '../../domain/repositories/routine.repository';
 import {
   CreateRoutineRequestDTO,
   RoutineResponseDTO,
 } from '../dtos/routine-dto';
 
 export class RoutineMapper {
-  static toDTO(routine: Routine): CreateRoutineRequestDTO {
+  static toCreateDTO(routine: CreateRoutineParams): CreateRoutineRequestDTO {
     return {
       name: routine.name,
       description: routine.description,
