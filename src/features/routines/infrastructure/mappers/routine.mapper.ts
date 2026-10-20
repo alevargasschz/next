@@ -1,23 +1,22 @@
-import { Routine } from "../../domain/entities/routines";
-import { CreateRoutineParams } from "../../domain/repositories/routine.repository";
-import { CreateRoutineDto, RoutineResponseDto } from "../dtos/routine.dto";
+import { Routine } from '../../domain/entities/routine';
+import { CreateRoutineParams } from '../../domain/repositories/routine.repository';
+import { RoutineResponseDto, CreateRoutineDto } from '../dtos/routine.dto';
 
 export class RoutineMapper {
-    // 
-    static toCreateDto(entity: CreateRoutineParams): CreateRoutineDto {
-        return {
-            name: entity.name,
-            description: entity.description,
-            userId: 1
-        }
-    }
-
-    // Response Backend -> Routine Entity
     static toDomain(dto: RoutineResponseDto): Routine {
         return new Routine({
             id: dto.id,
             name: dto.name,
-            description: dto.description ?? "Description not defined",
-        })
+            description: dto.description ?? undefined,
+            createdAt: new Date(dto.created_at),
+        });
+    }
+
+    static toDto(params: CreateRoutineParams): CreateRoutineDto {
+        return {
+            name: params.name.trim(),
+            description: params.description?.trim(),
+            userId: 1,
+        };
     }
 }
