@@ -1,30 +1,24 @@
-export interface IRoutines {
+export interface RoutineProps {
     id: number;
     name: string;
     description: string;
 }
 
-export class Routine { 
+export class Routine {
     readonly id: number;
     readonly name: string;
     readonly description: string;
 
-    constructor(routine: IRoutines) {
-        this.id = routine.id;
-        this.name = routine.name;
-        this.description = routine.description ?? 'Descripcion no especificada';
+    constructor(props: RoutineProps) {
+        this.validate(props);
+        this.id = props.id;
+        this.name = props.name;
+        this.description = props.description;
     }
 
-    validate(routine: IRoutines): boolean {
-        if (routine.name.length < 10) {
-            throw new Error('Routine name is too short.');
+    validate(props: RoutineProps) {
+        if (props.name.length < 4) { // @Column({length: 10})
+            throw new Error("Name should have a length greather than 10")
         }
-        if (routine.name.length > 100) {
-            throw new Error('Routine name is too long.');
-        }
-        if (routine.description.length > 500) {
-            throw new Error('Routine description is too long.');
-        }
-        return true;
     }
 }

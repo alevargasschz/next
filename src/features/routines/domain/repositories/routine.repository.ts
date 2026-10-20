@@ -1,15 +1,13 @@
 import { Routine } from "../entities/routines";
 
 export interface CreateRoutineParams {
-    id: number;
     name: string;
     description?: string;
+
+    userId: number;
 }
 
-export interface IRoutinesRepository {
-    create(routine: CreateRoutineParams): Promise<Routine>;
-    findById(id: number): Promise<Routine | null>;
-    findAll(): Promise<Routine[]>;
-    update(routine: Routine): Promise<Routine>;
-    delete(id: number): Promise<void>;
+export interface RoutineRepository {
+    getAll(): Promise<Routine[]>;
+    create(params: CreateRoutineParams): Promise<Routine>
 }

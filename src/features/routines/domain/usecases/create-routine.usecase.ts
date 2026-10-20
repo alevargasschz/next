@@ -1,10 +1,11 @@
 import { Routine } from "../entities/routines";
-import { CreateRoutineParams, IRoutinesRepository } from "../repositories/routine.repository";
+import { CreateRoutineParams, RoutineRepository } from "../repositories/routine.repository";
 
 export class CreateRoutineUseCase {
-    constructor(private readonly routinesRepository: IRoutinesRepository) { }
+    constructor(private readonly repository: RoutineRepository) { };
 
-    async execute(routine: CreateRoutineParams): Promise<Routine> {
-        return await this.routinesRepository.create(routine);
+    async execute(params: CreateRoutineParams): Promise<Routine> {
+        // Respectivas reglas de negocio que hagan parte del proceso de crear una rutina
+        return await this.repository.create(params);
     }
 }

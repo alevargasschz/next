@@ -1,36 +1,33 @@
-import { CreateRoutineRequestDTO, RoutineResponseDTO } from "../dtos/routine-dto";
+import { CreateRoutineDto, RoutineResponseDto } from "../dtos/routine.dto";
+import { RoutineDatasource } from "./routine-datasource.interface";
 
-export class RoutineMockDatasource {
-    private routines: RoutineResponseDTO[] = [
+export class RoutineMockDataSource implements RoutineDatasource {
+    private routines: RoutineResponseDto[] = [
         {
             id: 1,
-            name: "Rutina 1",
-            description: "Descripción de la rutina 1"
+            name: "Pechito",
+            description: "Es una rutina para sacar pecho"
         },
         {
             id: 2,
-            name: "Rutina 2",
-            description: "Descripción de la rutina 2"
-        },
-        {
-            id: 3,
-            name: "Rutina 3",
-            description: "Descripción de la rutina 3"
+            name: "Brazo",
+            description: "Curl y más"
         }
-    ];
-
-    async fetchRoutines(): Promise<RoutineResponseDTO[]> {
+    ]
+    async fetchRoutines(): Promise<RoutineResponseDto[]> {
+        // fetch("http://localhost:8080/api")
         return [...this.routines];
     }
-
-    createRoutines(routine: CreateRoutineRequestDTO): Promise<RoutineResponseDTO> {
-        const nextID = this.routines.length + 1;
-        const newRoutine: RoutineResponseDTO = {
-            id: nextID,
+    async createRoutines(routine: CreateRoutineDto): Promise<RoutineResponseDto> {
+        const nextId = this.routines.length + 1;
+        const newRoutine: RoutineResponseDto = {
+            id: nextId,
             name: routine.name,
-            description: routine.description ?? "Descripción no especificada"
-        };
-        this.routines.push(newRoutine);
-        return Promise.resolve(newRoutine);
+            description: routine.description,
+        }
+
+        this.routines.push(newRoutine)
+        return newRoutine;
     }
+
 }
